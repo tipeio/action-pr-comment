@@ -1,0 +1,15 @@
+name: 'Slack PR comment'
+description: 'Send a notification to Slack when a PR has a comment'
+inputs:
+  userMap:  # id of input
+    description: 'Map of Github usernames mapped to Slack names'
+    required: true
+  slackToken:
+    description: 'Slack bot token'
+    required: true
+  slackSigingSecret:
+    description: 'Slack signing secret'
+    required: true
+runs:
+  using: 'node12'
+  main: 'index.js'
