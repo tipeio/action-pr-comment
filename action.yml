@@ -7,7 +7,7 @@ inputs:
   slackToken:
     description: 'Slack bot token'
     required: true
-  slackSigingSecret:
+  slackSigningSecret:
     description: 'Slack signing secret'
     required: true
 runs:
