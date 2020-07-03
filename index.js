@@ -27,7 +27,7 @@ const createBlocks = ({repo, prNumber, prUrl, commentUrl, slackCommentorId, gith
         },
         {
           "type": "mrkdwn",
-          "text": `*Comment By:*\n\nSlack: <@${slackCommentorId}>\nGithub: <https://github.com/${githubCommentorUsername}|${githubAuthorUsername}>`
+          "text": `*Comment By:*\n\nSlack: <@${slackCommentorId}>\nGithub: <https://github.com/${githubCommentorUsername}|${githubCommentorUsername}>`
         }
       ]
     },
