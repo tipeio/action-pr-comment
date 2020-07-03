@@ -50,7 +50,7 @@ const run = async () => {
     const octokit = github.getOctokit(core.getInput('githubToken'))
     const userMap = JSON.parse(core.getInput('userMap'))
     const slackToken = core.getInput('slackToken')
-    const comment = github.context.payload
+    const payload = github.context.payload
 
     const app = new App({
       token: slackToken,
@@ -58,16 +58,16 @@ const run = async () => {
     })
     
     if (github.context.payload.comment) {
-      const repo = comment.pull_request.base.repo.name
-      const prUrl = comment._links.pull_request.href
-      const commentUrl = comment._links.self.href
+      const repo = payload.pull_request.base.repo.name
+      const prUrl = payload.comment._links.pull_request.href
+      const commentUrl = payload.comment._links.self.href
       const prNumber = prUrl.split('/').slice(-1)[0]
-      const githubCommentorUsername = comment.comment.user.login
+      const githubCommentorUsername = payload.comment.user.login
 
       const { data: pr } = await octokit.pulls.get({
         repo,
-        owner: comment.organization.login,
-        pull_number: comment.pull_request.number
+        owner: payload.organization.login,
+        pull_number: payload.pull_request.number
       })
 
 
@@ -95,7 +95,7 @@ const run = async () => {
           repo,
           commentUrl,
           githubCommentorUsername,
-          comment: comment.comment.body,
+          comment: payload.comment.body,
           slackCommentorId: slackCommentor.id
         })
       })
