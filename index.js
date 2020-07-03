@@ -16,7 +16,7 @@ const run = async () => {
     })
     
     if (github.context.payload.comment) {
-      console.log(JSON.stringify(comment.pull_request, null, 2))
+      console.log('org ', JSON.stringify(comment.organization, null, 2))
       const { data: pr } = await octokit.pulls.get({
         owner: comment.organization.login,
         repo: comment.pull_request.base.repo.name,
@@ -25,7 +25,7 @@ const run = async () => {
 
       const commentorGhUsername = comment.user.login
       const commentorSlackUsername = userMap[commentorGhUsername]
-
+      console.log('\n\n\n PR', JSON.stringify(pr, null, 2))
       const authorGhUsername = pr.user.login
       const authorSlackUsername = userMap[authorGhUsername]
 
