@@ -18,11 +18,12 @@ const run = async () => {
         token: slackToken
       })
 
-      console.log(JSON.stringify(channels, null, 2))
+      
   
       const result = await app.client.chat.postMessage({
         token: slackToken,
-        channel: 'D781H60V9',
+        channel: 'U77DZRXEU',
+        as_user: true,
         text: github.context.payload.comment.body
       })
 
