@@ -16,7 +16,7 @@ const github = require('@actions/github')
       token: slackToken,
       channel: 'D781H60V9',
       text: commentPayload.body
-    });
+    })
     
   } catch (e) {
     core.setFailed(error.message)
