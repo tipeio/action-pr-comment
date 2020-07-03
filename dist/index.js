@@ -33537,6 +33537,7 @@ const { App } = __webpack_require__(449)
 const run = async () => {
   try {
     const userMap = JSON.parse(core.getInput('userMap'))
+    console.log(JSON.stringify(github.context.payload, null, 2))
     const commentPayload = github.context.payload.pull_request_review_comment
     const slackToken = core.getInput('slackToken')
 
