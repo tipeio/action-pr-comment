@@ -5,7 +5,6 @@ const { App } = require('@slack/bolt')
 const run = async () => {
   try {
     const userMap = JSON.parse(core.getInput('userMap'))
-    console.log(JSON.stringify(userMap, null, 2))
     const slackToken = core.getInput('slackToken')
 
     const app = new App({
@@ -13,18 +12,20 @@ const run = async () => {
       signingSecret: core.getInput('slackSigningSecret')
     })
     
-    console.log(JSON.stringify(github.context, null, 2))
     if (github.context.payload.comment) {
-      console.log('body')
 
+      const {channels} = await app.client.conversations.list({
+        token: slackToken
+      })
+
+      console.log(JSON.stringify(channels, null, 2))
+  
       const result = await app.client.chat.postMessage({
         token: slackToken,
         channel: 'D781H60V9',
         text: github.context.payload.comment.body
       })
 
-    } else {
-      console.log('no body')
     }
     
   } catch (e) {
