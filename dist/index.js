@@ -33537,8 +33537,8 @@ const { App } = __webpack_require__(449)
 const run = async () => {
   try {
     const userMap = JSON.parse(core.getInput('userMap'))
-    console.log(JSON.stringify(github.context.payload, null, 2))
-    const commentPayload = github.context.payload.pull_request_review_comment
+    // console.log(JSON.stringify(github.context.payload, null, 2))
+    
     const slackToken = core.getInput('slackToken')
 
     const app = new App({
@@ -33549,7 +33549,7 @@ const run = async () => {
     const result = await app.client.chat.postMessage({
       token: slackToken,
       channel: 'D781H60V9',
-      text: commentPayload.body
+      text: github.context.payload.comment.body
     })
     
   } catch (e) {
