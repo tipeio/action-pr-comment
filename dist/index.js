@@ -33544,12 +33544,20 @@ const run = async () => {
       token: slackToken,
       signingSecret: core.getInput('slackSigningSecret')
     })
+    
+    console.log(JSON.stringify(github.context, null, 2))
+    if (github.context.payload.comment) {
+      console.log('body')
 
-    const result = await app.client.chat.postMessage({
-      token: slackToken,
-      channel: 'D781H60V9',
-      text: github.context.payload.comment.body
-    })
+      const result = await app.client.chat.postMessage({
+        token: slackToken,
+        channel: 'D781H60V9',
+        text: github.context.payload.comment.body
+      })
+
+    } else {
+      console.log('no body')
+    }
     
   } catch (e) {
     core.setFailed(e.message)
