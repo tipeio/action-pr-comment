@@ -33537,8 +33537,7 @@ const { App } = __webpack_require__(449)
 const run = async () => {
   try {
     const userMap = JSON.parse(core.getInput('userMap'))
-    // console.log(JSON.stringify(github.context.payload, null, 2))
-    
+    console.log(JSON.stringify(userMap, null, 2))
     const slackToken = core.getInput('slackToken')
 
     const app = new App({
