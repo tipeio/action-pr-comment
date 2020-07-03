@@ -1,5 +1,6 @@
 const core = require('@actions/core')
 const github = require('@actions/github')
+const { App } = require('@slack/bolt')
 
 const run = async () => {
   try {
