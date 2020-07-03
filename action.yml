@@ -10,6 +10,9 @@ inputs:
   slackSigningSecret:
     description: 'Slack signing secret'
     required: true
+  githubToken:
+    description: 'Github token with repo access'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'

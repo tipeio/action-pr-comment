@@ -33536,8 +33536,11 @@ const { App } = __webpack_require__(449)
 
 const run = async () => {
   try {
+    
+    const octokit = github.getOctokit(core.getInput('githubToken'))
     const userMap = JSON.parse(core.getInput('userMap'))
     const slackToken = core.getInput('slackToken')
+    const comment = github.context.payload
 
     const app = new App({
       token: slackToken,
@@ -33545,18 +33548,31 @@ const run = async () => {
     })
     
     if (github.context.payload.comment) {
+      const { data: pr } = await octokit.pulls.get({
+        owner: comment.organization.login,
+        repo: comment.base.repo.name,
+        pull_number: comment.number
+      })
+
+      const commentorGhUsername = comment.user.login
+      const commentorSlackUsername = userMap[commentorGhUsername]
+
+      const authorGhUsername = pr.user.login
+      const authorSlackUsername = userMap[authorGhUsername]
+
+      console.log('commentor ', commentorGhUsername, commentorSlackUsername)
+
+      console.log('author ', authorGhUsername, authorSlackUsername)
 
       const {channels} = await app.client.conversations.list({
         token: slackToken
       })
-
-      
   
       const result = await app.client.chat.postMessage({
         token: slackToken,
         channel: 'U77DZRXEU',
         as_user: true,
-        text: github.context.payload.comment.body
+        text: comment.comment.body
       })
 
     }
