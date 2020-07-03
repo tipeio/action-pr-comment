@@ -7209,7 +7209,7 @@ module.exports = function (x) {
 const core = __webpack_require__(42)
 const github = __webpack_require__(796)
 
-(async () => {
+const run = async () => {
   try {
     const userMap = JSON.parse(core.getInput('userMap'))
     const commentPayload = github.context.payload.pull_request_review_comment
@@ -7224,12 +7224,14 @@ const github = __webpack_require__(796)
       token: slackToken,
       channel: 'D781H60V9',
       text: commentPayload.body
-    });
+    })
     
   } catch (e) {
     core.setFailed(error.message)
   }
-})()
+}
+
+run()
 
 
 /***/ }),

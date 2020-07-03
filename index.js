@@ -1,7 +1,7 @@
 const core = require('@actions/core')
 const github = require('@actions/github')
 
-(async () => {
+const run = async () => {
   try {
     const userMap = JSON.parse(core.getInput('userMap'))
     const commentPayload = github.context.payload.pull_request_review_comment
@@ -21,4 +21,6 @@ const github = require('@actions/github')
   } catch (e) {
     core.setFailed(error.message)
   }
-})()
+}
+
+run()
