@@ -2,3 +2,4 @@ node_modules
 .DS*
 build
 *.log
+test.js
