@@ -38,7 +38,7 @@ const createBlocks = ({repo, prNumber, prUrl, commentUrl, slackCommentorId, gith
       "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": slackifyMarkdown(comment)
+        "text": `*Comment*\n\n${slackifyMarkdown(comment)}`
       }
     }
   ]
@@ -58,17 +58,12 @@ const run = async () => {
     })
     
     if (github.context.payload.comment) {
-      console.log(JSON.stringify(payload, null, 2))
       const repo = payload.pull_request.base.repo.name
-      console.log('repo ', repo)
       const prUrl = payload.comment._links.pull_request.href
-      console.log('prUrl ', prUrl)
       const commentUrl = payload.comment._links.self.href
-      console.log('commentUrl ', commentUrl)
       const prNumber = prUrl.split('/').slice(-1)[0]
-      console.log('pr number ', prNumber)
       const githubCommentorUsername = payload.comment.user.login
-      console.log('github commentor ', githubCommentorUsername)
+      
 
       const { data: pr } = await octokit.pulls.get({
         repo,
