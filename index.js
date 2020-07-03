@@ -58,6 +58,7 @@ const run = async () => {
     })
     
     if (github.context.payload.comment) {
+      console.log(JSON.stringify(payload, null, 2))
       const repo = payload.pull_request.base.repo.name
       console.log('repo ', repo)
       const prUrl = payload.comment._links.pull_request.href
