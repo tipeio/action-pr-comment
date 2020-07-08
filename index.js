@@ -23,7 +23,7 @@ const createBlocks = ({repo, prNumber, prUrl, commentUrl, slackCommentorId, gith
       "fields": [
         {
           "type": "mrkdwn",
-          "text": `*Pull Request:*\n\nRepo: <https://github.com/${repo}|${repo}>\nPR: <${prUrl}|${prNumber}>\nComment: <${commentUrl}|URL>`
+          "text": `*Pull Request:*\n\nRepo: <https://github.com/tipeio/${repo}|${repo}>\nPR: <${prUrl}|${prNumber}>\nComment: <${commentUrl}|URL>`
         },
         {
           "type": "mrkdwn",
@@ -38,7 +38,7 @@ const createBlocks = ({repo, prNumber, prUrl, commentUrl, slackCommentorId, gith
       "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": `*Comment*\n\n${slackifyMarkdown(comment)}`
+        "text": `*Comment:*\n\n\n${slackifyMarkdown(comment)}`
       }
     }
   ]
@@ -59,8 +59,8 @@ const run = async () => {
     
     if (github.context.payload.comment) {
       const repo = payload.pull_request.base.repo.name
-      const prUrl = payload.comment._links.pull_request.href
-      const commentUrl = payload.comment._links.self.href
+      const prUrl = payload.pull_request._links.html.href
+      const commentUrl = payload.comment._links.html.href
       const prNumber = prUrl.split('/').slice(-1)[0]
       const githubCommentorUsername = payload.comment.user.login
       
