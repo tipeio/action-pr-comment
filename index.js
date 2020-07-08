@@ -4,43 +4,25 @@ const slackifyMarkdown = require('slackify-markdown')
 const { App } = require('@slack/bolt')
 
 const createBlocks = ({repo, prNumber, prUrl, commentUrl, slackCommentorId, githubCommentorUsername, comment}) => {
-  const titles = ["*You're* not allowed to do that! 🚫", "Hello? *911*? There's some people here writing bad code. 🚔", "Your code just looked real suspicous. 🕵🏻‍♀️"]
-  const title = titles[Math.floor(Math.random() * titles.length)]
-
+  
   return [
     {
       "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": title
+        "text": `<@${slackCommentorId}> left a comment on your *<${prUrl}| PR>* for _<https://github.com/tipeio/${repo}|${repo}>_\n\n`
       }
-    },
-    {
-      "type": "divider"
-    },
-    {
-      "type": "section",
-      "fields": [
-        {
-          "type": "mrkdwn",
-          "text": `*Pull Request:*\n\nRepo: <https://github.com/tipeio/${repo}|${repo}>\nPR: <${prUrl}|${prNumber}>\nComment: <${commentUrl}|URL>`
-        },
-        {
-          "type": "mrkdwn",
-          "text": `*Comment By:*\n\nSlack: <@${slackCommentorId}>\nGithub: <https://github.com/${githubCommentorUsername}|${githubCommentorUsername}>`
-        }
-      ]
-    },
-    {
-      "type": "divider"
     },
     {
       "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": `*Comment:*\n\n\n${slackifyMarkdown(comment)}`
+        "text": `_-start comment_:\n\n\n${slackifyMarkdown(comment)}\n\n\n_-end comment_`
       }
-    }
+    },
+    {
+      "type": "divider"
+    },
   ]
 }
 
